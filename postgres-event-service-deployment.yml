@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: postgres-events-service
+  name: postgres-events-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-events-service
+  template:
+    metadata:
+      labels:
+        app: postgres-events-service
+    spec:
+      containers:
+        - env:
+            - name: PGDATA
+              value: /data/postgres
+            - name: POSTGRES_DB
+              value: eventdb
+            - name: POSTGRES_PASSWORD
+              value: password
+            - name: POSTGRES_USER
+              value: eventprod
+          image: postgres
+          name: postgres-events-service
+          ports:
+            - containerPort: 5432
+          resources: {}
+          volumeMounts:
+            - mountPath: /data/postgres
+              name: postgres-events-service-claim0
+      restartPolicy: Always
+      volumes:
+        - name: postgres-events-service-claim0
+          persistentVolumeClaim:
+            claimName: postgres-events-service-claim0
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: postgres-events-service
+  name: postgres-events-service
+spec:
+  ports:
+    - name: "5433"
+      port: 5433
+      targetPort: 5432
+  selector:
+    app: postgres-events-service
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: postgres-events-service-claim0
+  name: postgres-events-service-claim0
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
