@@ -17,7 +17,7 @@ spec:
       containers:
         - env:
             - name: PGDATA
-              value: /data/postgres
+              value: /data/postgres/data
             - name: POSTGRES_DB
               value: userdb
             - name: POSTGRES_PASSWORD
@@ -30,7 +30,7 @@ spec:
             - containerPort: 5432
           resources: {}
           volumeMounts:
-            - mountPath: /data/postgres
+            - mountPath: /data/postgres/data
               name: postgres-user-service-claim0
       restartPolicy: Always
       volumes:
