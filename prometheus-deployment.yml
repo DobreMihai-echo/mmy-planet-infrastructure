@@ -14,12 +14,12 @@ data:
           - targets: ['user-service:8080']
             labels:
               application: 'User Microservice Application'
-      - job_name: 'service_discovery'
+      - job_name: 'events_service'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: ['service-discovery:8761']
+          - targets: ['events-service:8060']
             labels:
-              application: 'Service Discovery'
+              application: 'User Microservice Application'        
       - job_name: 'api_gateway'
         metrics_path: '/actuator/prometheus'
         static_configs:
@@ -34,8 +34,6 @@ data:
               application: 'Notification Service Application'
 
 ---
-
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -85,6 +83,7 @@ metadata:
     app: prometheus
   name: prometheus
 spec:
+  type: LoadBalancer
   ports:
     - name: "9090"
       port: 9090
