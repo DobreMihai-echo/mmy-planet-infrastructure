@@ -67,6 +67,7 @@ metadata:
     app: grafana-claim0
   name: grafana-claim0
 spec:
+  storageClassName: standard
   accessModes:
     - ReadWriteOnce
   resources:

@@ -62,6 +62,7 @@ metadata:
     app: postgres-events-service-claim0
   name: postgres-events-service-claim0
 spec:
+  storageClassName: standard
   accessModes:
     - ReadWriteOnce
   resources:

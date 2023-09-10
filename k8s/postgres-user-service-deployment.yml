@@ -62,6 +62,7 @@ metadata:
     app: postgres-user-service-claim0
   name: postgres-user-service-claim0
 spec:
+  storageClassName: standard
   accessModes:
     - ReadWriteOnce
   resources:
