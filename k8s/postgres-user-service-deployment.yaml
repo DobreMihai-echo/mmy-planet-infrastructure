@@ -14,6 +14,13 @@ spec:
       labels:
         app: postgres-user-service
     spec:
+      initContainers:
+      - name: remove-lost-found
+        image: busybox
+        command: ['sh', '-c', 'rm -rf /data/postgres/user/lost+found']
+        volumeMounts:
+        - mountPath: /data/postgres/user
+          name: postgres-user-service-claim0
       containers:
         - env:
             - name: PGDATA

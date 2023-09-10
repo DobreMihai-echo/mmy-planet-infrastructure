@@ -14,6 +14,13 @@ spec:
       labels:
         app: postgres-events-service
     spec:
+      initContainers:
+      - name: remove-lost-found
+        image: busybox
+        command: ['sh', '-c', 'rm -rf /data/postgres/event/lost+found']
+        volumeMounts:
+        - mountPath: /data/postgres/event
+          name: postgres-events-service-claim0
       containers:
         - env:
             - name: PGDATA
