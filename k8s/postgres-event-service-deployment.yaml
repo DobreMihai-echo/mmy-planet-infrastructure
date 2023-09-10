@@ -55,6 +55,7 @@ metadata:
 spec:
   ports:
     - name: "5433"
+      protocol: TCP
       port: 5433
       targetPort: 5432
   selector:
