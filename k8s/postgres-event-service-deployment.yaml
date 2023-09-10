@@ -17,7 +17,7 @@ spec:
       containers:
         - env:
             - name: PGDATA
-              value: /data/postgres/data
+              value: /data/postgres/event
             - name: POSTGRES_DB
               value: eventdb
             - name: POSTGRES_PASSWORD
@@ -30,7 +30,7 @@ spec:
             - containerPort: 5432
           resources: {}
           volumeMounts:
-            - mountPath: /data/postgres/data
+            - mountPath: /data/postgres/event
               name: postgres-events-service-claim0
       restartPolicy: Always
       volumes:
