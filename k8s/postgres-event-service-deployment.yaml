@@ -35,7 +35,13 @@ spec:
           name: postgres-events-service
           ports:
             - containerPort: 5432
-          resources: {}
+          resources:
+            limits:
+              cpu: "250m"
+              memory: "1Gi"
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
           volumeMounts:
             - mountPath: /data/postgres/event
               name: postgres-events-service-claim0

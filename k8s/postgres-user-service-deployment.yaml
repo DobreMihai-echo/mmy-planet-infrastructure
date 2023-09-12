@@ -35,7 +35,13 @@ spec:
           name: postgres-user-service
           ports:
             - containerPort: 5432
-          resources: {}
+          resources:
+            limits:
+              cpu: "250m"
+              memory: "1Gi"
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
           volumeMounts:
             - mountPath: /data/postgres/user
               name: postgres-user-service-claim0
